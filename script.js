@@ -7,9 +7,7 @@ const labels = {
     labs: { en: "Labs.", zh: "实验室" }
 };
 const projects = [
-    { id: "001", name: { en: "Nexus_Core_Repository", zh: "核心代码库" }, link: "https://github.com/aegis-nexus" },
-    { id: "002", name: { en: "Autonomous_Task_Stream", zh: "自主任务流" }, link: "#" },
-    { id: "003", name: { en: "Synthesis_Engine_V1", zh: "综合引擎_V1" }, link: "#" }
+    { id: "001", name: { en: "Aegis_Integration_Test", zh: "Aegis_集成测试项目" }, link: "https://github.com/aegis-nexus/aegis-nexus.github.io" }
 ];
 
 let currentLang = 'en';
@@ -22,7 +20,7 @@ function detectDevice() {
 detectDevice(); window.addEventListener('resize', detectDevice);
 
 class TextScramble {
-    constructor(el) { this.el = el; this.chars = '!<>-/[]{}—=+*^?#________16858170101'; this.update = this.update.bind(this); }
+    constructor(el) { this.el = el; this.chars = '!<>-/[]{}—=+*^?#________16861070101'; this.update = this.update.bind(this); }
     setText(newText) {
         const oldText = this.el.innerText;
         const length = Math.max(oldText.length, newText.length);
