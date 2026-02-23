@@ -1,8 +1,3 @@
-/* =========================================
-   Aegis Core Interface - Styles
-   Refined from ghostnode.top
-   ========================================= */
-
 :root {
     --bg-color: #0d0e10;
     --text-color: #a0a0a0;
@@ -12,105 +7,43 @@
     --dim: #444;
     --font-stack: "JetBrains Mono", "Roboto Mono", monospace;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-stack);
-    font-size: 13px;
-    line-height: 1.6;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    padding: 4vh 4vw;
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: default;
+    background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-stack); font-size: 13px; line-height: 1.6;
+    height: 100vh; width: 100vw; overflow: hidden; display: flex; flex-direction: column; padding: 4vh 4vw; -webkit-user-select: none; user-select: none; cursor: default;
 }
-
-body.mobile-mode {
-    height: auto;
-    min-height: 100vh;
-    overflow-y: auto;
-    padding: 20px;
-    display: block;
-}
-
-header { flex-shrink: 0; opacity: 0; animation: fadeIn 1s forwards 0.5s; height: 60px; }
+body.mobile-mode { height: auto; min-height: 100vh; overflow-y: auto; padding: 20px; display: block; }
+header { flex-shrink: 0; opacity: 0; animation: fadeIn 1s forwards 0.5s; height: 60px; display: flex; justify-content: space-between; align-items: flex-start; }
 .logo { font-weight: 700; color: var(--highlight); font-size: 16px; }
-
-main {
-    flex-grow: 1;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    top: -20px;
-}
-
+.lang-switcher { display: flex; gap: 10px; font-size: 10px; opacity: 0.5; transition: opacity 0.3s; }
+.lang-switcher:hover { opacity: 1; }
+.lang-btn { cursor: pointer; padding: 2px 5px; border: 1px solid transparent; }
+.lang-btn.active { border-color: var(--dim); color: var(--highlight); }
+main { flex-grow: 1; width: 100%; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; position: relative; top: -20px; }
 body.mobile-mode main { top: 0; padding-top: 10px; padding-bottom: 60px; }
-
-h1 {
-    font-size: clamp(24px, 5vw, 32px);
-    color: var(--highlight);
-    font-weight: 700;
-    margin-bottom: 50px;
-    padding-left: 100px;
-    min-height: 1.5em;
-    letter-spacing: -1px;
-}
-
+h1 { font-size: clamp(32px, 8vw, 48px); color: var(--highlight); font-weight: 700; margin-bottom: 50px; padding-left: 100px; min-height: 1.5em; letter-spacing: -1px; }
 body.mobile-mode h1 { padding-left: 0; margin-bottom: 30px; }
-
 .section-row { display: flex; margin-bottom: 40px; align-items: baseline; }
 body.mobile-mode .section-row { flex-direction: column; }
-
 .section-label { width: 100px; color: var(--dim); font-size: 10px; letter-spacing: 1px; flex-shrink: 0; text-transform: uppercase; }
 body.mobile-mode .section-label { margin-bottom: 10px; }
-
 .section-content { flex-grow: 1; }
 #bio-text { color: #bfbfbf; max-width: 600px; min-height: 40px; }
-
 .labs-grid { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 20px; row-gap: 15px; width: 100%; max-width: 600px; }
 body.mobile-mode .labs-grid { grid-template-columns: 1fr; }
-
 .lab-item { display: flex; opacity: 0; transition: opacity 0.3s ease; }
 .lab-item.visible { opacity: 1; }
-
 .lab-number { color: var(--dim); margin-right: 15px; font-size: 11px; }
 .lab-name { color: var(--text-color); display: inline-block; position: relative; cursor: pointer; text-decoration: none; }
 .lab-name:hover { color: var(--highlight); }
-
 .scramble-dim { opacity: 0.4; }
-
-footer {
-    position: fixed; bottom: 20px; right: 30px; font-size: 10px; color: var(--dim); text-align: right; z-index: 10; opacity: 0; animation: fadeIn 2s forwards 2s;
-}
-
+footer { position: fixed; bottom: 20px; right: 30px; font-size: 10px; color: var(--dim); text-align: right; z-index: 10; opacity: 0; animation: fadeIn 2s forwards 2s; }
 body.mobile-mode footer { position: fixed; bottom: 15px; left: 20px; right: 20px; text-align: left; }
-
 #status-line { display: flex; flex-wrap: wrap; gap: 6px 15px; justify-content: flex-end; }
 body.mobile-mode #status-line { justify-content: flex-start; }
-
 @keyframes fadeIn { to { opacity: 1; } }
-
 .glitch-effect { text-shadow: -2px 0 var(--accent-red), 2px 0 var(--accent-cyan); color: #fff; }
-
-@keyframes signal-interference {
-    0%, 95% { text-shadow: none; transform: translate(0); opacity: 1; }
-    96% { text-shadow: -1px 0 var(--accent-red), 1px 0 var(--accent-cyan); opacity: 0.9; transform: translate(-0.5px, 0); }
-    97% { text-shadow: 1px 0 var(--accent-red), -1px 0 var(--accent-cyan); transform: translate(0.5px, 0); }
-    100% { text-shadow: none; transform: translate(0); }
-}
-
+@keyframes signal-interference { 0%, 95% { text-shadow: none; transform: translate(0); opacity: 1; } 96% { text-shadow: -1px 0 var(--accent-red), 1px 0 var(--accent-cyan); opacity: 0.9; transform: translate(-0.5px, 0); } 97% { text-shadow: 1px 0 var(--accent-red), -1px 0 var(--accent-cyan); transform: translate(0.5px, 0); } 100% { text-shadow: none; transform: translate(0); } }
 .unstable-signal { animation: signal-interference 9s infinite linear alternate-reverse; }
-
 .stat-hide-mobile { display: inline; }
 body.mobile-mode .stat-hide-mobile { display: none !important; }

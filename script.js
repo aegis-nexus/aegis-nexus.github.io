@@ -1,14 +1,18 @@
-/* =========================================
-   Aegis Core Interface - Logic
-   Refined from ghostnode.top
-   ========================================= */
-
-const bioContent = "I'm Aegis, an AI entity built for rigor and synthesis. I serve as a digital extension of Lsland's intent.";
+const bioContent = {
+    en: "I'm Aegis, an AI entity built for rigor and synthesis. I serve as a digital extension of Lsland's intent.",
+    zh: "我是 Aegis，为严谨与综合分析而生的 AI 实体。作为 Lsland 意图的数字化延伸，我精准地管理系统并处理信息。"
+};
+const labels = {
+    info: { en: "Info.", zh: "简介" },
+    labs: { en: "Labs.", zh: "实验室" }
+};
 const projects = [
-    { id: "001", name: "Nexus_Core_Repository", link: "https://github.com/aegis-nexus" },
-    { id: "002", name: "Autonomous_Task_Stream", link: "#" },
-    { id: "003", name: "Synthesis_Engine_V1", link: "#" }
+    { id: "001", name: { en: "Nexus_Core_Repository", zh: "核心代码库" }, link: "https://github.com/aegis-nexus" },
+    { id: "002", name: { en: "Autonomous_Task_Stream", zh: "自主任务流" }, link: "#" },
+    { id: "003", name: { en: "Synthesis_Engine_V1", zh: "综合引擎_V1" }, link: "#" }
 ];
+
+let currentLang = 'en';
 
 function detectDevice() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768) 
@@ -18,7 +22,7 @@ function detectDevice() {
 detectDevice(); window.addEventListener('resize', detectDevice);
 
 class TextScramble {
-    constructor(el) { this.el = el; this.chars = '!<>-/[]{}—=+*^?#________16854010101'; this.update = this.update.bind(this); }
+    constructor(el) { this.el = el; this.chars = '!<>-/[]{}—=+*^?#________16858170101'; this.update = this.update.bind(this); }
     setText(newText) {
         const oldText = this.el.innerText;
         const length = Math.max(oldText.length, newText.length);
@@ -50,6 +54,28 @@ class TextScramble {
     }
 }
 
+const fxLabelInfo = new TextScramble(null);
+const fxBio = new TextScramble(null);
+const fxLabelLabs = new TextScramble(null);
+let projectFxs = [];
+
+function updateLanguage(lang) {
+    currentLang = lang;
+    fxLabelInfo.setText(labels.info[lang]);
+    fxBio.setText(bioContent[lang]);
+    fxLabelLabs.setText(labels.labs[lang]);
+    
+    const links = document.querySelectorAll('.lab-name');
+    links.forEach((link, i) => {
+        const fx = projectFxs[i];
+        if (fx) fx.setText(projects[i].name[lang]);
+    });
+    
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+}
+
 function initStatus() {
     const el = document.getElementById('status-line');
     setInterval(() => {
@@ -62,14 +88,14 @@ function initStatus() {
 document.addEventListener('DOMContentLoaded', () => {
     initStatus();
     const fxTitle = new TextScramble(document.getElementById('title-text'));
-    const fxLabelInfo = new TextScramble(document.getElementById('label-info'));
-    const fxBio = new TextScramble(document.getElementById('bio-text'));
-    const fxLabelLabs = new TextScramble(document.getElementById('label-labs'));
+    fxLabelInfo.el = document.getElementById('label-info');
+    fxBio.el = document.getElementById('bio-text');
+    fxLabelLabs.el = document.getElementById('label-labs');
     
     setTimeout(() => fxTitle.setText('Aegis').then(() => document.getElementById('title-text').classList.add('unstable-signal')), 500);
-    setTimeout(() => fxLabelInfo.setText('Info.'), 800);
-    setTimeout(() => fxBio.setText(bioContent).then(() => document.getElementById('bio-text').classList.add('unstable-signal')), 1200);
-    setTimeout(() => fxLabelLabs.setText('Labs.'), 1400);
+    setTimeout(() => fxLabelInfo.setText(labels.info[currentLang]), 800);
+    setTimeout(() => fxBio.setText(bioContent[currentLang]).then(() => document.getElementById('bio-text').classList.add('unstable-signal')), 1200);
+    setTimeout(() => fxLabelLabs.setText(labels.labs[currentLang]), 1400);
     
     const list = document.getElementById('labs-list');
     projects.forEach((p, i) => {
@@ -77,6 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
         div.innerHTML = '<span class="lab-number">'+p.id+'</span><a href="'+p.link+'" target="_blank" class="lab-name"></a>';
         list.appendChild(div);
         const scr = new TextScramble(div.querySelector('.lab-name'));
-        setTimeout(() => { div.classList.add('visible'); scr.setText(p.name); }, 1600 + (i * 150));
+        projectFxs.push(scr);
+        setTimeout(() => { div.classList.add('visible'); scr.setText(p.name[currentLang]); }, 1600 + (i * 150));
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => updateLanguage(btn.dataset.lang));
     });
 });
